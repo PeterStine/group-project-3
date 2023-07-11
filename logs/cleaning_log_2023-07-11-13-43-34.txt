@@ -1,0 +1,15 @@
+New data loaded from file successfully!
+Beginning Geoapify requests for In_person listings...
+2023-07-11 13:43:36
+Completed Geoapify requests for 20 In_person listings
+2023-07-11 13:44:10.
+Beginning Geoapify requests for Hybrid listings...
+2023-07-11 13:44:16
+Completed Geoapify requests for 3 Hybrid listings
+2023-07-11 13:44:21.
+Beginning Geoapify requests for Remote listings...
+2023-07-11 13:44:24
+Completed Geoapify requests for 16 Remote listings
+2023-07-11 13:44:33.
+39 listings were successfully cleaned!
+New cleaned results saved to file ../data/listings_cleaned.csv
