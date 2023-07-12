@@ -17,7 +17,7 @@ df_listings = pd.read_csv("data/listings_cleaned.csv")
 print(df_listings)
 
 # Open the database file
-conn = sqlite3.connect("listings.db")
+conn = sqlite3.connect("data/listings.db")
 
 # Copy the pandas dataframe into the sqlite database
 df_listings.to_sql("table_listings", con=conn)
