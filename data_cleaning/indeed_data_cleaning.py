@@ -1,8 +1,14 @@
+#!/usr/bin/env python
+# coding: utf-8
+
 # # indeed_data_cleaning.py
 # 
 # ---
 # 
-# ## This will clean the data that was scraped from Indeed.  The location strings will be cleaned into usable locations to feed into Geoapify, coordinates will be determined with Geoapify when possible, and each listing will be tagged as In_person, Hybrid, or Remote.
+# ## This will clean the data that was scraped from Indeed.  The location strings will be cleaned into usable locations to feed into Geoapify, coordinates will be determined with Geoapify when possible, and each listing will be tagged as In_person, Hybrid, or Remote.  The results are then saved as both a .csv file and as a .db file for SQLite usage.
+
+# In[ ]:
+
 
 try:
     # Dependencies and Setup
@@ -11,6 +17,9 @@ try:
     import requests
     import json
     from geoapify_function import single_geocode
+    from data_archiver import db_archiver
+    import os
+    from pathlib import Path
 
     # Import the API key for Geoapify
     from config import geoapify_key
@@ -66,10 +75,16 @@ except:
     log.close()
     quit()
 
+
+# In[ ]:
+
+
 # Create a series of this column for later use
 locations = listings_scraped_df['location']
 
-#-----------------------------------------------------------------------------------------------------------------
+
+# In[ ]:
+
 
 # Create a DataFrame which contains only in_person jobs
 listings_office_df = listings_scraped_df.loc[~locations.str.startswith('Remote') & ~locations.str.startswith('Hybrid remote')].copy()
@@ -112,7 +127,9 @@ print(f"Completed Geoapify requests for {office_count} In_person listings\n{curr
 
 #listings_office_df.head()
 
-#-----------------------------------------------------------------------------------------------------------------
+
+# In[ ]:
+
 
 # Create a DataFrame which contains only Hybrid Remote jobs
 listings_hybrid_df = listings_scraped_df.loc[locations.str.startswith('Hybrid remote')].copy()
@@ -156,7 +173,11 @@ current_time = time.strftime("%Y-%m-%d %H:%M:%S", t)
 print(f"Completed Geoapify requests for {hybrid_count} Hybrid listings\n{current_time}.", file=log)
 print(f"Completed Geoapify requests for {hybrid_count} Hybrid listings\n{current_time}.")
 
-#-----------------------------------------------------------------------------------------------------------------
+#listings_hybrid_df.head()
+
+
+# In[ ]:
+
 
 # Create a DataFrame which contains only Remote jobs
 listings_remote_raw_df = listings_scraped_df.loc[locations.str.startswith('Remote')].copy()
@@ -212,7 +233,11 @@ current_time = time.strftime("%Y-%m-%d %H:%M:%S", t)
 print(f"Completed Geoapify requests for {remote_count} Remote listings\n{current_time}.", file=log)
 print(f"Completed Geoapify requests for {remote_count} Remote listings\n{current_time}.")
 
-#-----------------------------------------------------------------------------------------------------------------
+#listings_remote_df.head()
+
+
+# In[ ]:
+
 
 # Check if any listings were lost or duplicated
 if ((office_count + hybrid_count + remote_count) == listings_count):
@@ -227,6 +252,10 @@ elif ((office_count + hybrid_count + remote_count) < listings_count):
     print(f"Some listings may have been lost during cleaning.", file=log)
     print(f"Some listings may have been lost during cleaning.")
 
+
+# In[ ]:
+
+
 # Put the three DataFrames back together
 listings_temp_df = pd.concat([listings_office_df, listings_hybrid_df])
 
@@ -235,7 +264,11 @@ listings_cleaned_df = pd.concat([listings_temp_df, listings_remote_df])
 # Reordering the columns
 listings_cleaned_df = listings_cleaned_df[['id', 'title', 'company', 'location', 'lat', 'lon', 'office', 'job_type', 'salary', 'time_recorded', 'url']]
 
-#-----------------------------------------------------------------------------------------------------------------
+#listings_cleaned_df
+
+
+# In[ ]:
+
 
 # Save the updated DataFrame as a .csv file
 t = time.localtime()
@@ -284,4 +317,44 @@ except:
         log.close()
         quit()
 
+
+# In[ ]:
+
+
+# Save updated file to the SQLite database
+t = time.localtime()
+current_time = time.strftime("%Y-%m-%d %H:%M:%S", t)
+db_file = '../data/listings.db'
+
+try:
+    # Delete the existing database file so that it can be replaced with the updated one
+    if os.path.isfile(db_file):
+        os.remove(db_file)
+    
+    db_archiver()
+    
+    print(f"New cleaned results saved to database file {db_file}", file=log)
+    print(f"New cleaned results saved to database file {db_file}")
+    
+except:
+    print("Something went wrong with saving the results to database file", file=log)
+    print("Something went wrong with saving the results to database file")
+    
+    print(f"Logs have been saved to {log_file}", file=log)
+    print(f"Logs have been saved to {log_file}")
+    
+    log.close()
+    quit()
+
+
+# In[ ]:
+
+
 log.close()
+
+
+# In[ ]:
+
+
+
+
