@@ -43,23 +43,10 @@ def homepage():
 
 @app.route("/api/v1.0/listings")
 def listings():
-    # Create our session (link) from Python to the DB
-    session = Session(engine)
-
-    # Query to retrieve all the stations
-    listings_records = session.query(Listings.table_listings).all()
-
+    cols = ["id", "title", "company", "location", "lat", "lon", "office", "job_type", "salary", "time_recorded", "url"]
+    listings_records = session.query(*cols).all()
     session.close()
-
-    # # Create a dictionary from the row data and append to a list of precipitation for the year by dates
-    # station_list = []
-    # for station, name in stations:
-    #     station_dict = {}
-    #     station_dict["station"] = station
-    #     station_dict["name"] = name
-    #     station_list.append(station_dict)
-
-    return jsonify(listings_records)
+    return listings_records
 
 if __name__ == '__main__':
     app.run(debug=True)
