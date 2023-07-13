@@ -22,6 +22,7 @@ Base.prepare(autoload_with=engine)
 # Save references to each table
 Listings = Base.classes.table_listings
 
+# print(dir(Base.classes)) - DEBUG
 # Create our session (link) from Python to the DB
 session = Session(engine)
 
@@ -43,10 +44,16 @@ def homepage():
 
 @app.route("/api/v1.0/listings")
 def listings():
-    cols = ["id", "title", "company", "location", "lat", "lon", "office", "job_type", "salary", "time_recorded", "url"]
-    listings_records = session.query(*cols).all()
+    sel = [Listings.id, Listings.title, Listings.company, Listings.location, 
+            Listings.lat, Listings.lon, Listings.office, Listings.job_type, 
+            Listings.salary, Listings.time_recorded, Listings.url]
+    listings_records = session.query(*sel).all()
     session.close()
-    return listings_records
+    listings = []
+    for listing in listings_records:
+        row_data = list(np.ravel(listing))
+        listings.append(row_data)
+    return listings
 
 if __name__ == '__main__':
     app.run(debug=True)
