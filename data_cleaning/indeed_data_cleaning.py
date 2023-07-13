@@ -31,6 +31,9 @@ try:
     log = open(f"../logs/cleaning_log_{current_time_file}.txt", "a")
     log_file = f"../logs/cleaning_log_{current_time_file}.txt"
     
+    print(f"Log file opened successfully.", file=log)
+    print(f"Log file opened successfully.")
+    
 except:
     # Open a file to save logs to
     t = time.localtime()
@@ -47,7 +50,11 @@ except:
     
     log.close()
     quit()
-    
+
+
+# In[ ]:
+
+
 # Check if an uncleaned file exists
 try:
     # Import uncleaned scraped data

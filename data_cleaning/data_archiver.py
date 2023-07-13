@@ -21,5 +21,9 @@ def db_archiver():
     # Open the database file
     conn = sqlite3.connect("../data/listings.db")
 
+    df_listings.drop_duplicates(subset = ['id'], inplace = True)
+
     # Copy the pandas dataframe into the sqlite database
-    df_listings.to_sql("table_listings", con=conn)
+    df_listings.to_sql("table_listings", con=conn, if_exists='replace', dtype={'id': 'VARCHAR PRIMARY KEY'})
+
+db_archiver()
