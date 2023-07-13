@@ -1,0 +1,6 @@
+Commands for bypassing CORS when looking at html files.  Run these from the directory with the .html file that you're opening.
+
+python -m http. server 8000
+
+Then go to url <localhost:8000>
+
