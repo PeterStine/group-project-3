@@ -3,7 +3,7 @@ import React from 'react';
 
 class TextStack extends React.Component {
     render() {
-        const textItems = ['Item 1', 'Item 2', 'Item 3', 'Item 4', 'Item 5'];
+        const textItems = ['Remote Job 1', 'Remote Job 2', 'Remote Job 3', 'Remote Job 4', 'Remote Job 5'];
 
         const itemStyle = {
             boxShadow: '0px 4px 8px 0px rgba(0, 0, 0, 0.2)',

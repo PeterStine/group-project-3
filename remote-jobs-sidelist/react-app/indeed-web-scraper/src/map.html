@@ -1,0 +1,41 @@
+<!--
+    Author: Peter Stine
+    Date Created: 7/13/2023
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leaflet Map</title>
+    <!--This will load first-->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+
+</head>
+
+<body>
+    <div id="mapid" style="height: 100%; width: 100%;"></div>
+    <!--This loads after everything in the head tag-->
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+    <script>
+        /**
+         * L is Leaflet, 
+         * .map() inititalizes a new map on the div above in the body tag.
+         * setView sets the geographic view to the city of London in the United Kingdom
+         * the number 13 is the initial zoom level
+         */
+        var map = L.map('mapid').setView([51.505, -0.09], 13);
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        console.log("Test Message")
+
+    </script>
+</body>
+
+</html>
