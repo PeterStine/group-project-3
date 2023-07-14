@@ -133,7 +133,7 @@ def indeed_scraper(data, search_params, browser):
     time.sleep(1)
     
     # This can be set to one of these options = ["Last 24 Hours", "Last 3 days", "Last 7 days", "Last 14 days"]
-    last_24_hours = browser.find_by_text("Last 14 days").first
+    last_24_hours = browser.find_by_text("Last 24 hours").first
     last_24_hours.click()
     
     last_page = False
@@ -168,7 +168,7 @@ def indeed_scraper(data, search_params, browser):
     return data
 
 # Set "what" for the words to search, and "where" for the location search
-search_params = {"what": "Data Scientist", "where": "United States"}
+search_params = {"what": "Data Analyst", "where": "United States"}
 
 # Run the webscraper to collect all listings from all pages for the last 24 hours
 
