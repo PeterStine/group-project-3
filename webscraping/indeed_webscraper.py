@@ -33,7 +33,7 @@ except:
     quit()
 
 # Give the browser time to respond
-time.sleep(10)
+time.sleep(5)
 
 # Removes the / from the end of the url
 url[:-1]
