@@ -1,0 +1,3 @@
+Log file opened successfully.
+New data loaded from file successfully!
+New cleaned results saved to database file ../data/listings.db

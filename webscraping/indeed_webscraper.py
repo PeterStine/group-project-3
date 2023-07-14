@@ -133,7 +133,7 @@ def indeed_scraper(data, search_params, browser):
     time.sleep(1)
     
     # This can be set to one of these options = ["Last 24 Hours", "Last 3 days", "Last 7 days", "Last 14 days"]
-    last_24_hours = browser.find_by_text("Last 24 hours").first
+    last_24_hours = browser.find_by_text("Last 14 days").first
     last_24_hours.click()
     
     last_page = False
