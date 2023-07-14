@@ -1,12 +1,25 @@
-/* Remove the default margin and padding from the body. */
 body {
   padding: 0;
   margin: 0;
 }
 
-/* Set map, body, and html to 100% of the screen size. */
 #map,
 body,
 html {
   height: 100%;
+}
+
+/* Define the animation keyframes. */
+@keyframes marker-fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+/* Apply the animation to the markers. */
+.marker-animation {
+  animation: marker-fade-in 5s ease-in-out;
 }

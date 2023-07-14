@@ -1,79 +1,159 @@
-// Create a map object.
+// // Create a map object
+// let myMap = L.map("map", {
+//   center: [37.09, -95.71],
+//   zoom: 5,
+//   pitch: 60, // Set the pitch (tilt) angle to create a 3D effect
+// });
+
+// // Add a custom elevation layer using Mapbox Terrain-RGB tileset
+// let elevationLayer = L.tileLayer(
+//   "https://api.mapbox.com/v4/mapbox.terrain-rgb/{z}/{x}/{y}.pngraw?access_token=YOUR_MAPBOX_ACCESS_TOKEN", {
+//     attribution: '&copy; <a href="https://www.mapbox.com/">Mapbox</a> contributors',
+//     maxZoom: 14,
+//   }
+// ).addTo(myMap);
+
+// // Add a tile layer for the base map
+// let baseMap = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+//   attribution: '&copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors'
+// });
+
+// // Create a layer group for job data
+// let jobData = L.layerGroup().addTo(myMap);
+
+// // Load the CSV data
+// let geoData = "listings_cleaned.csv";
+
+// d3.csv(geoData).then(function (data) {
+//   console.log(data);
+
+//   // Create markers and add them to the layer group
+//   for (let i = 0; i < data.length; i++) {
+//     let listing = data[i];
+//     let listingMarker = L.marker([listing.lat, listing.lon]).bindPopup("<h3>" + listing.company + listing.salary + listing.url + listing.title + "</h3>");
+
+//     // Add an event listener to the marker's click event
+//     listingMarker.on("click", function () {
+//       // Retrieve the URL you want to navigate to from the marker's data
+//       let url = listing.url;
+
+//       // Create a link element and simulate a click to navigate to the URL
+//       let link = document.createElement("a");
+//       link.href = url;
+//       link.target = "_blank";
+//       link.click();
+//     });
+
+//     listingMarker.addTo(jobData);
+//   }
+// });
+
+// // Set the base layers
+// let baseLayers = {
+//   "Elevation": elevationLayer,
+//   "Base Map": baseMap
+// };
+
+// // Add layer control to toggle base layers
+// L.control.layers(baseLayers).addTo(myMap);
+
+
+
+
+
+// Create a map object
 let myMap = L.map("map", {
-    center: [37.09, -95.71],
-    zoom: 5
-  });
-  
-  // Add a tile layer.
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-  }).addTo(myMap);
-
-
-
-    // Store our API endpoint as queryUrl.
-let queryUrl = "https://www.indeed.com/rc/clk?jk=80b9309315126177&fccid=dd616958bd9ddc12&vjs=3";
-
-// Perform a GET request to the query URL/
-d3.json(queryUrl).then(function (data) {
-  // Once we get a response, send the data.features object to the createFeatures function.
-  createFeatures(data.features);
+  center: [37.09, -95.71],
+  zoom: 5
 });
 
-function createFeatures(jobsData) {
+// Add a tile layer.
+let baseMap = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+}).addTo(myMap);
 
-  // Define a function that we want to run once for each feature in the features array.
-  // Give each feature a popup that describes the place and time of the earthquake.
-  function onEachFeature(feature, layer) {
-    layer.bindPopup(`<h3>${feature.properties.place}</h3><hr><p>${new Date(feature.properties.time)}</p>`);
+let jobData = L.layerGroup().addTo(myMap);
+
+// Load the CSV data.
+let geoData = "listings_cleaned.csv";
+
+
+
+d3.csv(geoData).then(function (data) {
+  console.log(data);
+
+  // Create markers and add them to the layer group.
+  for (let i = 0; i < data.length; i++) {
+    let listing = data[i];
+    let listingMarker = L.marker([listing.lat, listing.lon]).bindPopup("<h3>" + listing.company + listing.salary + listing.url + listing.title + "</h3>");
+
+    // Add an event listener to the marker's click event.
+    listingMarker.on("click", function () {
+      // Retrieve the URL you want to navigate to from the marker's data.
+      let url = listing.url;
+
+      // Create a link element and simulate a click to navigate to the URL.
+      let link = document.createElement("a");
+      link.href = url;
+      link.target = "_blank";
+      link.click();
+    });
+
+    listingMarker.addTo(jobData);
   }
+});
 
-  // Create a GeoJSON layer that contains the features array on the earthquakeData object.
-  // Run the onEachFeature function once for each piece of data in the array.
-  let jobs = L.geoJSON(jobsData, {
-    onEachFeature: onEachFeature
-  });
 
-  // Send our earthquakes layer to the createMap function/
-  createMap(jobs);
-}
 
-function createMap(jobs) {
 
-  // Create the base layers.
-  let street = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-  })
 
-  let topo = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
-    attribution: 'Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, <a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)'
-  });
+// d3.csv(geoData).then(function (data) {
+//   console.log(data);
 
-  // Create a baseMaps object.
-  let baseMaps = {
-    "Street Map": street,
-    "Topographic Map": topo
-  };
+//   // Create markers and add them to the layer group.
+//   for (let i = 0; i < data.length; i++) {
+//     let listing = data[i];
+//     let listingMarker = L.marker([listing.lat, listing.lon]).bindPopup("<h3>" + listing.company + listing.salary + listing.url + listing.title + "</h3>");
 
-  // Create an overlay object to hold our overlay.
-  let overlayMaps = {
-    Jobs: jobs
-  };
+//     // Add an event listener to the marker's popupopen event or click event.
+//     listingMarker.on("popupopen", function () {
+//       // Retrieve the URL you want to navigate to from the marker's data.
+//       let url = listing.url;
 
-  // Create our map, giving it the streetmap and earthquakes layers to display on load.
-  let myMap = L.map("map", {
-    center: [
-      37.09, -95.71
-    ],
-    zoom: 5,
-    layers: [street, jobs]
-  });
+//       // Navigate to the URL using window.location.href.
+//       window.location.href = url;
+//     });
 
-  // Create a layer control.
-  // Pass it our baseMaps and overlayMaps.
-  // Add the layer control to the map.
-  L.control.layers(baseMaps, overlayMaps, {
-    collapsed: false
-  }).addTo(myMap);
+//     listingMarker.addTo(jobData);
+//   }
+// });
 
-}
+
+
+
+// d3.csv(geoData).then(function (data) {
+//   console.log(data);
+
+//   function createMarkers(response) {
+//     let listings = data;
+//     let listingMarkers = [];
+//     for (let i = 0; i < listings.length; i++) {
+//       let listing = listings[i];
+//       let listingMarker = L.marker([listing.lat, listing.lon]).bindPopup("<h3>" + listing.company + listing.salary + listing.url + listing.title + "</h3>");
+//       listingMarker.addTo(jobData);
+
+//       // Add the marker-animation class to each marker.
+//       listingMarker.getElement().classList.add("marker-animation");
+
+//       listingMarkers.push(listingMarker);
+//     }
+//     console.log(listingMarkers);
+//   }
+
+//   createMarkers(data);
+
+//   jobData.addTo(myMap);
+// });
+
+
+
