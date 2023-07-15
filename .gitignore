@@ -6,7 +6,7 @@ __pycache__/
 # C extensions
 *.so
 
-# API key fils
+# API key files
 data_cleaning/config.py
 config.py
 /data_cleaning/config.py
