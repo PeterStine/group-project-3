@@ -293,7 +293,7 @@ try:
     #listings_archive_df.drop(columns=listings_archive_df.columns[0], axis=1, inplace=True)
     
     # Save the archived file as a backup
-    listings_archive_df.to_csv(f"{file_path_archive}_{current_time_file}", index=False)
+    listings_archive_df.to_csv(f"../data/listings_cleaned_{current_time_file}.csv", index=False)
     
     # Concatenate new data onto the old
     listings_concat_df = pd.concat([listings_archive_df, listings_cleaned_df])

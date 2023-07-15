@@ -1,0 +1,15 @@
+Indeed Listings Map
+FUTURE WORK
+- Improve cleaning of locations to remove marks that appear in the wrong place.
+
+- Turn salary strings into usable numbers for sorting (per year, per month, per hour, per contract).
+
+- Scrape the job type (full-time, part-time, contract, temp, etc) from the detailed listing.
+
+- Automate scraping, cleaning, and storage daily.
+
+- Have the website pull data from the updated database rather than a static file.
+
+- Arrange a way for data collection that's allowable by Indeed or find an alternate source of similar data.
+
+- 
