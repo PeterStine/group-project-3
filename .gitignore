@@ -8,6 +8,8 @@ __pycache__/
 
 # API key fils
 data_cleaning/config.py
+config.py
+/data_cleaning/config.py
 
 # Distribution / packaging
 .Python
