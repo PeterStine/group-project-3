@@ -12,4 +12,6 @@ FUTURE WORK
 
 - Arrange a way for data collection that's allowable by Indeed or find an alternate source of similar data.
 
-- 
+- Study of effect of keyword choice on results
+
+- Study changes over time
