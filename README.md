@@ -5,7 +5,7 @@ METHODS:  Indeed.com job listings were scraped using a Python script with Splint
 
 DIRECTORIES and FILES:
 
-The main directory contains the .gitignore and README.md (which is this document).
+The main directory contains the .gitignore and README.md (which is this document) as well as other sub-directories.
 
 /data
 This directory contains the raw scraped data (listings_new.csv), and the cleaned data from that file in two forms (listings_cleaned.csv and listings.db).  When new data is scraped, the listings_new.csv file is overwritten.  The listings_cleaned.csv and listings.db files have the new data appended to them, and the previous version of the listings_cleaned.csv file which is being updated is saved as a backup file with the date, in case something goes wrong while appending new data.
@@ -21,5 +21,8 @@ The scripts indeed_webscraper.py and indeed_data_cleaning.py save various statem
 
 /mapping
 This directory contains the mapping JavaScript code in /static/js/logic.js, /static/css/style.css, and the HTML code in index.html which creates the map.  The map itself has a selector to show all individual listings, In Person listings only, Hybrid listings only, Remote listings only, or all listings in a cluster map.  Many of the Remote listings include a location (likely the location of the employer) and are included on the map at those locations.
+
+/webscraping
+This directory contains 3 files.  The file indeed_webscraper.ipynb is a Jupyter Notebook file that was used in development.  In its current form, the file indeed_webscaper.py is a Python script that scrapes job listings data from Indeed.com with a keyword search set for "Data Analyst", the location option set for "United States", and the Date Posted option set for "The Last 24 hours."  Data for this project was scraped using the keyword search "Data Scientist."  The file indeed_webscraper_starter.ipynb is a very early version provided by the teaching assistant to help get the group started.
 
 
