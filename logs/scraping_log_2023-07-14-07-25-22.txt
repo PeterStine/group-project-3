@@ -1,0 +1,6 @@
+Opening Indeed in Chrome...2023-07-14 07:25:23
+Beginning scraping process...2023-07-14 07:25:34
+Something went wrong with the scraper.. :(
+2023-07-14 07:25:38
+Logs have been saved to ../logs/scraping_log_2023-07-14-07-25-22.txt
+Browser has been closed.
